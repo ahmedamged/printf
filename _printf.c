@@ -40,6 +40,41 @@ int handle_char(char c, int old_count)
 	return (old_count);
 }
 /**
+ * handle_switch - stdout function
+ * @format: kind of object to print
+ * @args: val_list to choose from
+ * @old_count: number of chars printed
+ * @i: index of format
+ * before calling this
+ *
+ * handles the printing of any object
+ *
+ * Return: the new count of chars printed
+ */
+int handle_switch(const char *format, va_list args, int old_count, unsigned int *i)
+{
+	(*i)++;
+	switch (format[*i])
+	{
+	case 'c':
+		old_count = handle_char((char)va_arg(args, int), old_count);
+		break;
+	case 's':
+		old_count = handle_string(va_arg(args, char *), old_count);
+		break;
+	case '%':
+		old_count = handle_char('%', old_count);
+		break;
+	case '\0':
+		return (-1);
+	default:
+		i--;
+		old_count = handle_char(format[*i], old_count);
+		break;
+	}
+	return (old_count);
+}
+/**
  * _printf - stdout function
  * @format: the format string
  *
@@ -60,25 +95,7 @@ int _printf(const char *format, ...)
 		{
 			if (format[i] == '%')
 			{
-				i++;
-				switch (format[i])
-				{
-				case 'c':
-					count = handle_char((char)va_arg(args, int), count);
-					break;
-				case 's':
-					count = handle_string(va_arg(args, char *), count);
-					break;
-				case '%':
-					count = handle_char('%', count);
-					break;
-				case '\0':
-					return (-1);
-				default:
-					i--;
-					count = handle_char(format[i], count);
-					break;
-				}
+				count = handle_switch(format, args, count, &i);
 			}
 			else
 			{
