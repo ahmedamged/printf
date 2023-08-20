@@ -72,7 +72,7 @@ int _printf(const char *format, ...)
 				case '%':
 					count = handle_char('%', count);
 					break;
-				case ' ':
+				case '\0':
 					return (-1);
 				default:
 					i--;
