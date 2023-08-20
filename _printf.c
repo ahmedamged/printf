@@ -11,6 +11,10 @@
  */
 int handle_string(char *s, int old_count)
 {
+	if (s == NULL)
+	{
+		s = "(null)";
+	}
 	while (*s != '\0')
 	{
 		_putchar(*s);
