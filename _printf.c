@@ -70,11 +70,11 @@ int _printf(const char *format, ...)
 				case 's':
 					count = handle_string(va_arg(args, char *), count);
 					break;
-				case '%':
-					count = handle_char('%', count);
-					break;
-				default:
+				case ' ':
 					return (-1);
+				default:
+					count = handle_char(format[i], count);
+					break;
 				}
 			}
 			else
