@@ -53,9 +53,9 @@ int _printf(const char *format, ...)
 	unsigned int i, count = 0;
 	va_list args;
 
-	va_start(args, format);
 	if (format != NULL)
 	{
+		va_start(args, format);
 		for (i = 0; format[i] != '\0'; i++)
 		{
 			if (format[i] == '%')
@@ -75,6 +75,7 @@ int _printf(const char *format, ...)
 					break;
 				default:
 					return (-1);
+					break;
 				}
 			}
 			else
@@ -82,11 +83,11 @@ int _printf(const char *format, ...)
 				count = handle_char(format[i], count);
 			}
 		}
+		va_end(args);
+		return (count);
 	}
 	else
 	{
-		count = -1;
+		return (-1);
 	}
-	va_end(args);
-	return (count);
 }
