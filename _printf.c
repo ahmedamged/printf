@@ -61,7 +61,6 @@ int _printf(const char *format, ...)
 			if (format[i] == '%')
 			{
 				i++;
-				/* format handlers: */
 				switch (format[i])
 				{
 				case 'c':
@@ -73,8 +72,12 @@ int _printf(const char *format, ...)
 				case '%':
 					count = handle_char('%', count);
 					break;
-				default:
+				case ' ':
 					return (-1);
+				default:
+					i--;
+					count = handle_char(format[i], count);
+					break;
 				}
 			}
 			else
@@ -85,8 +88,5 @@ int _printf(const char *format, ...)
 		va_end(args);
 		return (count);
 	}
-	else
-	{
-		return (-1);
-	}
+	return (-1);
 }
