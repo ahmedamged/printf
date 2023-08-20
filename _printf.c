@@ -53,7 +53,7 @@ int _printf(const char *format, ...)
 	unsigned int i, count = 0;
 	va_list args;
 
-	if (format != NULL)
+	if (format != NULL && !(format[i]=="%" && format[i+1]=="\0") )
 	{
 		va_start(args, format);
 		for (i = 0; format[i] != '\0'; i++)
