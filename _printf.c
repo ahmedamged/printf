@@ -75,7 +75,6 @@ int _printf(const char *format, ...)
 					break;
 				default:
 					return (-1);
-					break;
 				}
 			}
 			else
