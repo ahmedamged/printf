@@ -73,6 +73,9 @@ int _printf(const char *format, ...)
 				case '%':
 					count = handle_char('%', count);
 					break;
+				default:
+					return (-1);
+					break;
 				}
 			}
 			else
