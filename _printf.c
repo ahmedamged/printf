@@ -67,8 +67,6 @@ int handle_format(unsigned int *i, const char *format,
 	case '%':
 		old_count = handle_char('%', old_count);
 		break;
-	case '\0':
-		return (-1);
 	default:
 		(*i)--;
 		old_count = handle_char(format[*i], old_count);
@@ -97,6 +95,10 @@ int _printf(const char *format, ...)
 		{
 			if (format[i] == '%')
 			{
+				if (format[i + 1] == '\0')
+				{
+					return (-1);
+				}
 				count = handle_format(&i, format, args, count);
 			}
 			else
