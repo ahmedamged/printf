@@ -1,4 +1,5 @@
 #include "main.h"
+#include <stdio.h>
 /**
  * handle_string - stdout function
  * @s: string to print
@@ -51,25 +52,26 @@ int handle_char(char c, int old_count)
  *
  * Return: the new count of chars printed
  */
-int handle_format(int *i, const char format, va_list *args, int old_count)
+int handle_format(unsigned int *i, const char *format, va_list args, int old_count)
 {
 	(*i)++;
-	switch (format)
+	switch (format[*i])
 	{
 	case 'c':
-		old_count = handle_char((char)va_arg(*args, int), old_count);
+		old_count = handle_char((char)va_arg(args, int), old_count);
 		break;
 	case 's':
-		old_count = handle_string(va_arg(*args, char *), old_count);
+		old_count = handle_string(va_arg(args, char *), old_count);
 		break;
 	case '%':
 		old_count = handle_char('%', old_count);
 		break;
 	case '\0':
+		printf("reached the one %% case\n");
 		return (-1);
 	default:
 		(*i)--;
-		old_count = handle_char(format, old_count);
+		old_count = handle_char(format[*i], old_count);
 		break;
 	}
 	return (old_count);
@@ -95,7 +97,7 @@ int _printf(const char *format, ...)
 		{
 			if (format[i] == '%')
 			{
-				count = handle_format(&i, format[i], &args, count);
+				count = handle_format(&i, format, args, count);
 			}
 			else
 			{
