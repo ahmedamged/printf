@@ -40,6 +40,41 @@ int handle_char(char c, int old_count)
 	return (old_count);
 }
 /**
+ * handle_format - stdout function
+ * @i: index of format
+ * @format: format to handle
+ * @args: list of args
+ * @old_count: count of chars printed
+ * before calling this
+ *
+ * handles the printing of a format
+ *
+ * Return: the new count of chars printed
+ */
+int handle_format(int *i, const char format, va_list *args, int old_count)
+{
+	(*i)++;
+	switch (format)
+	{
+	case 'c':
+		old_count = handle_char((char)va_arg(*args, int), old_count);
+		break;
+	case 's':
+		old_count = handle_string(va_arg(*args, char *), old_count);
+		break;
+	case '%':
+		old_count = handle_char('%', old_count);
+		break;
+	case '\0':
+		return (-1);
+	default:
+		(*i)--;
+		old_count = handle_char(format, old_count);
+		break;
+	}
+	return (old_count);
+}
+/**
  * _printf - stdout function
  * @format: the format string
  *
@@ -60,25 +95,7 @@ int _printf(const char *format, ...)
 		{
 			if (format[i] == '%')
 			{
-				i++;
-				switch (format[i])
-				{
-				case 'c':
-					count = handle_char((char)va_arg(args, int), count);
-					break;
-				case 's':
-					count = handle_string(va_arg(args, char *), count);
-					break;
-				case '%':
-					count = handle_char('%', count);
-					break;
-				case '\0':
-					return (-1);
-				default:
-					i--;
-					count = handle_char(format[i], count);
-					break;
-				}
+				count = handle_format(&i, format[i], &args, count);
 			}
 			else
 			{
