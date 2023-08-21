@@ -52,7 +52,8 @@ int handle_char(char c, int old_count)
  *
  * Return: the new count of chars printed
  */
-int handle_format(unsigned int *i, const char *format, va_list args, int old_count)
+int handle_format(unsigned int *i, const char *format,
+				  va_list args, int old_count)
 {
 	(*i)++;
 	switch (format[*i])
@@ -67,7 +68,6 @@ int handle_format(unsigned int *i, const char *format, va_list args, int old_cou
 		old_count = handle_char('%', old_count);
 		break;
 	case '\0':
-		printf("reached the one %% case\n");
 		return (-1);
 	default:
 		(*i)--;
