@@ -16,6 +16,7 @@ int handle_int(int i, int old_count)
 	char buff[32];
 	int charPrinted = 0;
 	int o = 0;
+	int m = 0;
 
 	if (i < 0)
 	{
@@ -31,9 +32,11 @@ int handle_int(int i, int old_count)
 		charPrinted++;
 	}
 
-	for (int m = o - 1; m >= 0; m--)
+	m = o - 1;
+	while (m >= 0)
 	{
 		putchar(buff[m]);
+		m--;
 	}
 	old_count += charPrinted;
 	return (old_count);
