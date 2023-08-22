@@ -32,7 +32,7 @@ int handle_chars_format(const char format,
 		old_count = handle_rev_string(va_arg(args, char *), old_count);
 		break;
 	case 'R':
-		old_count = handle_rot13_string(va_arg(args, char *), old_count);
+		old_count = handle_rev_string(va_arg(args, char *), old_count);
 		break;
 	}
 	return (old_count);
