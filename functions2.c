@@ -56,16 +56,37 @@ int handle_rev_string(char *s, int old_count)
  */
 int handle_rot13_string(char *s, int old_count)
 {
+	int i, isUpper, oldCharIndex, newCharIndex;
+	char *lower = "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ";
+	bool written;
 	if (s == NULL)
 	{
 		s = "(null)";
 	}
-	s = rot13(s);
+
 	while (*s != '\0')
 	{
-		_putchar(*s);
+		written = false;
+		for (i = 0; i < 52; i++)
+		{
+			if (*s == lower[i])
+			{
+				isUpper = i % 2;
+				oldCharIndex = i / 2;
+				newCharIndex = (oldCharIndex + 13) % 26;
+				newCharIndex = (newCharIndex * 2) + isUpper;
+				_putchar(lower[newCharIndex]);
+				old_count++;
+				written = true;
+				break;
+			}
+		}
+		if (!written)
+		{
+			_putchar(*s);
+			old_count++;
+		}
 		s++;
-		old_count++;
 	}
 
 	return (old_count);
