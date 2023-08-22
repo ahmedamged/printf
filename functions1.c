@@ -115,7 +115,7 @@ int handle_int_to_octal(unsigned int i, int old_count)
  * before calling this function
  * Return: the new count of chars printed
  */
-int handle_int_to_hex(unsigned int i, int old_count, bool isCapital)
+int handle_int_to_hex(size_t i, int old_count, bool isCapital)
 {
 	char buff[34];
 	int charPrinted = 0, reminder, o = 0, m = 0;

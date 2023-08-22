@@ -1,43 +1,34 @@
 #include "main.h"
 #include <stdio.h>
 /**
- * handle_string - stdout function
- * @s: string to print
- * @old_count: number of chars printed
+ * handle_chars_format - stdout function
+ * @format: format to handle
+ * @args: list of args
+ * @old_count: count of chars printed
  * before calling this
  *
- * handles the printing of a string
+ * handles the printing of a format
  *
  * Return: the new count of chars printed
  */
-int handle_string(char *s, int old_count)
+int handle_chars_format(const char format,
+						va_list args, int old_count)
 {
-	if (s == NULL)
+	switch (format)
 	{
-		s = "(null)";
+	case '%':
+		old_count = handle_char('%', old_count);
+		break;
+	case 'c':
+		old_count = handle_char((char)va_arg(args, int), old_count);
+		break;
+	case 's':
+		old_count = handle_string(va_arg(args, char *), old_count);
+		break;
+	case 'S':
+		old_count = handle_custom_string(va_arg(args, char *), old_count);
+		break;
 	}
-	while (*s != '\0')
-	{
-		_putchar(*s);
-		s++;
-		old_count++;
-	}
-	return (old_count);
-}
-/**
- * handle_char - stdout function
- * @c: char to print
- * @old_count: number of chars printed
- * before calling this
- *
- * handles the printing of a char
- *
- * Return: the new count of chars printed
- */
-int handle_char(char c, int old_count)
-{
-	_putchar(c);
-	old_count++;
 	return (old_count);
 }
 /**
@@ -58,14 +49,11 @@ int handle_format(unsigned int *i, const char *format,
 	(*i)++;
 	switch (format[*i])
 	{
-	case 'c':
-		old_count = handle_char((char)va_arg(args, int), old_count);
-		break;
-	case 's':
-		old_count = handle_string(va_arg(args, char *), old_count);
-		break;
 	case '%':
-		old_count = handle_char('%', old_count);
+	case 'c':
+	case 's':
+	case 'S':
+		old_count = handle_chars_format(format[*i], args, old_count);
 		break;
 	case 'i':
 	case 'd':
@@ -80,13 +68,13 @@ int handle_format(unsigned int *i, const char *format,
 	case 'o':
 		old_count = handle_int_to_octal(va_arg(args, unsigned int), old_count);
 		break;
-	case 'S':
-		old_count = handle_custom_string(va_arg(args, char *), old_count);
-		break;
 	case 'x':
 	case 'X':
 		old_count = handle_int_to_hex(va_arg(args, unsigned int),
 									  old_count, format[*i] == 'X');
+		break;
+	case 'p':
+		old_count = handle_address(va_arg(args, void *), old_count);
 		break;
 	default:
 		(*i)--;
