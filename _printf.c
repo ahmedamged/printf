@@ -71,8 +71,19 @@ int handle_format(unsigned int *i, const char *format,
 	case 'd':
 		old_count = handle_int(va_arg(args, int), old_count);
 		break;
+	case 'u':
+		old_count = handle_unsigned_int(va_arg(args, unsigned int), old_count);
+		break;
 	case 'b':
 		old_count = handle_int_to_binary(va_arg(args, unsigned int), old_count);
+		break;
+	case 'o':
+		old_count = handle_int_to_octal(va_arg(args, unsigned int), old_count);
+		break;
+	case 'x':
+	case 'X':
+		old_count = handle_int_to_hex(va_arg(args, unsigned int),
+		old_count, format[*i] == 'X');
 		break;
 	default:
 		(*i)--;
