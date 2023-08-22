@@ -31,6 +31,9 @@ int handle_chars_format(const char format,
 	case 'r':
 		old_count = handle_rev_string(va_arg(args, char *), old_count);
 		break;
+	case 'R':
+		old_count = handle_rev_string(va_arg(args, char *), old_count);
+		break;
 	}
 	return (old_count);
 }
@@ -57,6 +60,7 @@ int handle_format(unsigned int *i, const char *format,
 	case 's':
 	case 'S':
 	case 'r':
+	case 'R':
 		old_count = handle_chars_format(format[*i], args, old_count);
 		break;
 	case 'i':

@@ -44,3 +44,63 @@ int handle_rev_string(char *s, int old_count)
 
 	return (old_count);
 }
+/**
+ * handle_rot13_string - stdout function
+ * @s: string to print
+ * @old_count: number of chars printed
+ * before calling this
+ *
+ * handles the printing of a string
+ *
+ * Return: the new count of chars printed
+ */
+int handle_rot13_string(char *s, int old_count)
+{
+	if (s == NULL)
+	{
+		s = "(null)";
+	}
+	s = rot13(s);
+	while (*s != '\0')
+	{
+		_putchar(*s);
+		s++;
+		old_count++;
+	}
+
+	return (old_count);
+}
+/**
+ * rot13 - string function
+ * @str: pointer to string to encode
+ *
+ * encodes a string using rot13
+ *
+ * Return: the pointer to encoded string
+ */
+
+char *rot13(char *str)
+{
+	int i, isUpper, oldCharIndex, newCharIndex;
+
+	char *base = str;
+	char *lower = "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ";
+
+	while (*str != '\0')
+	{
+		for (i = 0; i < 52; i++)
+		{
+			if (*str == lower[i])
+			{
+				isUpper = i % 2;
+				oldCharIndex = i / 2;
+				newCharIndex = (oldCharIndex + 13) % 26;
+				newCharIndex = (newCharIndex * 2) + isUpper;
+				*str = lower[newCharIndex];
+				break;
+			}
+		}
+		str++;
+	}
+	return (base);
+}
