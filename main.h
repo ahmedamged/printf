@@ -10,4 +10,5 @@ int handle_char(char c, int old_count);
 int handle_string(char *s, int old_count);
 int handle_int(int i, int old_count);
 int handle_int_to_binary(unsigned int i, int old_count);
+
 #endif
