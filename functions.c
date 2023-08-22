@@ -9,22 +9,23 @@
  */
 int handle_int(int i, int old_count)
 {
-	char buff[32];
+	char buff[34];
 	int charPrinted = 0;
 	int o = 0;
 	int m = 0;
+	unsigned int number = i;
 
 	if (i < 0)
 	{
 		_putchar('-');
 		charPrinted++;
-		i = -i;
+		number = -i;
 	}
 
-	while (i > 0)
+	while (number > 0)
 	{
-		buff[o++] = '0' + (i % 10);
-		i /= 10;
+		buff[o++] = '0' + (number % 10);
+		number /= 10;
 		charPrinted++;
 	}
 
