@@ -174,9 +174,9 @@ int handle_custom_string(char *s, int old_count)
 		else
 		{
 			_putchar(*s);
+			old_count++;
 		}
 		s++;
-		old_count++;
 	}
 	return (old_count);
 }
