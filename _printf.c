@@ -71,6 +71,9 @@ int handle_format(unsigned int *i, const char *format,
 	case 'd':
 		old_count = handle_int(va_arg(args, int), old_count);
 		break;
+	case 'b':
+		old_count = handle_int_to_binary(va_arg(args, unsigned int), old_count);
+		break;
 	default:
 		(*i)--;
 		old_count = handle_char(format[*i], old_count);
