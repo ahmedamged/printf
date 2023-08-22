@@ -15,6 +15,12 @@ int handle_int(int i, int old_count)
 	int m = 0;
 	unsigned int number = i;
 
+	if (i == 0)
+	{
+		_putchar('0');
+		return (old_count + 1);
+	}
+
 	if (i < 0)
 	{
 		_putchar('-');
