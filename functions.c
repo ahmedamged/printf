@@ -1,7 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <ctype.h>
-#include <string.h>
 #include "main.h"
 
 /**
@@ -20,7 +16,7 @@ int handle_int(int i, int old_count)
 
 	if (i < 0)
 	{
-		putchar('-');
+		_putchar('-');
 		charPrinted++;
 		i = -i;
 	}
@@ -35,7 +31,7 @@ int handle_int(int i, int old_count)
 	m = o - 1;
 	while (m >= 0)
 	{
-		putchar(buff[m]);
+		_putchar(buff[m]);
 		m--;
 	}
 	old_count += charPrinted;

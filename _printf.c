@@ -68,11 +68,9 @@ int handle_format(unsigned int *i, const char *format,
 		old_count = handle_char('%', old_count);
 		break;
 	case 'i':
-		old_count = handle_int(va_arg(args, int), old_count);
-		break;
 	case 'd':
 		old_count = handle_int(va_arg(args, int), old_count);
-                break;
+		break;
 	default:
 		(*i)--;
 		old_count = handle_char(format[*i], old_count);
