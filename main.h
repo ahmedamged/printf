@@ -14,5 +14,5 @@ int handle_unsigned_int(unsigned int i, int old_count);
 int handle_int_to_binary(unsigned int i, int old_count);
 int handle_int_to_octal(unsigned int i, int old_count);
 int handle_int_to_hex(unsigned int i, int old_count, bool isCapital);
-
+int handle_custom_string(char *s, int old_count);
 #endif

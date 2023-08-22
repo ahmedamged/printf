@@ -80,10 +80,13 @@ int handle_format(unsigned int *i, const char *format,
 	case 'o':
 		old_count = handle_int_to_octal(va_arg(args, unsigned int), old_count);
 		break;
+	case 'S':
+		old_count = handle_custom_string(va_arg(args, char *), old_count);
+		break;
 	case 'x':
 	case 'X':
 		old_count = handle_int_to_hex(va_arg(args, unsigned int),
-		old_count, format[*i] == 'X');
+									  old_count, format[*i] == 'X');
 		break;
 	default:
 		(*i)--;

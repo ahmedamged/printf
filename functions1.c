@@ -144,3 +144,39 @@ int handle_int_to_hex(unsigned int i, int old_count, bool isCapital)
 	old_count += charPrinted;
 	return (old_count);
 }
+/**
+ * handle_custom_string - stdout function
+ * @s: string to print
+ * @old_count: number of chars printed
+ * before calling this
+ *
+ * handles the printing of a string
+ *
+ * Return: the new count of chars printed
+ */
+int handle_custom_string(char *s, int old_count)
+{
+	if (s == NULL)
+	{
+		s = "(null)";
+	}
+	while (*s != '\0')
+	{
+		if ((0 < *s && *s < 32) || *s >= 127)
+		{
+			old_count = handle_string("\\x", old_count);
+			if (*s < 16)
+			{
+				old_count = handle_char('0', old_count);
+			}
+			old_count = handle_int_to_hex(*s, old_count, true);
+		}
+		else
+		{
+			_putchar(*s);
+		}
+		s++;
+		old_count++;
+	}
+	return (old_count);
+}
