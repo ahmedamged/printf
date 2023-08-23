@@ -162,7 +162,7 @@ int handle_custom_string(char *s, int old_count)
 	}
 	while (*s != '\0')
 	{
-		if ((0 < *s && *s < 32) || *s >= 127)
+		if ((*s > 0 && *s < 32) || *s >= 127)
 		{
 			old_count = handle_string("\\x", old_count);
 			if (*s < 16)
